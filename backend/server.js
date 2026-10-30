@@ -14,7 +14,11 @@ const io = new Server(httpServer, {
 io.on("connection", (socket) => {
  console.log("Socket Connected", socket.id);
  socket.on("add-todo",(data)=>{
-    console.log(data);    
+    console.log(data);   
+    io.emit("send-todo",data)
+ })
+ socket.on("delete-todo",({id})=>{
+    io.emit("todo-deleted",{id})
  })
  
 });
